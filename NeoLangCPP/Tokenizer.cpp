@@ -21,7 +21,7 @@ bool Tokenizer::isString(std::string exp) {
 }
 
 bool Tokenizer::isOP(std::string exp) {
-	std::vector<std::string> ops{ "+", "-", "*", "%", "**", "/", "++", "--", "+=", "-=", "*=", "/=", "**=", "%=", "and", "or", "xor", "not", "&", "|", "^", "~", "==", "=", ">", "<", ">=", "<="};
+	std::vector<std::string> ops{ "+", "-", "*", "%", "**", "/", "++", "--", "+=", "-=", "*=", "/=", "**=", "%=", "and", "or", "xor", "not", "&", "|", "^", "~", "==", "=", ">", "<", ">=", "<=" };
 	return std::find(ops.begin(), ops.end(), exp) != ops.end();
 }
 
@@ -41,8 +41,8 @@ std::vector<std::string> Tokenizer::StrToken(std::string exp) {
 	Tokenizer::isTheString IS = NONE;
 	Tokenizer::isComment IC = CODE;
 	std::vector<std::string> tokens;
-	std::vector<std::string> restokens;
-	bool isAst = false;
+	std::vector<std::string> resTokens;
+	bool wasAsterisk = false;
 	tokens.push_back("");
 	for (char i : exp) {
 		std::string str(1, i);
@@ -58,16 +58,16 @@ std::vector<std::string> Tokenizer::StrToken(std::string exp) {
 			IC = MLINE;
 			tokens.pop_back();
 		}
-		if (IC == MLINE && isAst && str == "/") {
+		if (IC == MLINE && wasAsterisk && str == "/") {
 			IC = CODE;
 			continue;
 		}
 		if (IC != CODE) {
 			if (str == "*") {
-				isAst = true;
+				wasAsterisk = true;
 			}
 			else {
-				isAst = false;
+				wasAsterisk = false;
 			}
 			continue;
 		}
@@ -166,34 +166,34 @@ std::vector<std::string> Tokenizer::StrToken(std::string exp) {
 			tokens.push_back(str);
 		}
 		if (str == "*") {
-			isAst = true;
+			wasAsterisk = true;
 		}
 		else {
-			isAst = false;
+			wasAsterisk = false;
 		}
 	}
 	for (std::string i : tokens) {
-		if (restokens.size() > 1) {
-			if (isNum(i) && !isNum(restokens[restokens.size() - 2]) && restokens[restokens.size() - 2] != ")" && (!isVar(restokens[restokens.size() - 2]) || isKeyword(restokens[restokens.size() - 2]) || isOP(restokens[restokens.size() - 2])) && (restokens[restokens.size() - 1] == "-" || restokens[restokens.size() - 1] == "+")) {
-				restokens[restokens.size() - 1] += i;
+		if (resTokens.size() > 1) {
+			if (isNum(i) && !isNum(resTokens[resTokens.size() - 2]) && resTokens[resTokens.size() - 2] != ")" && (!isVar(resTokens[resTokens.size() - 2]) || isKeyword(resTokens[resTokens.size() - 2]) || isOP(resTokens[resTokens.size() - 2])) && (resTokens[resTokens.size() - 1] == "-" || resTokens[resTokens.size() - 1] == "+")) {
+				resTokens[resTokens.size() - 1] += i;
 			}
 			else if (!isWS(i) && i != "") {
-				restokens.push_back(i);
+				resTokens.push_back(i);
 			}
 		}
-		else if (restokens.size() > 0) {
-			if (isNum(i) && (restokens[restokens.size() - 1] == "-" || restokens[restokens.size() - 1] == "+")) {
-				restokens[restokens.size() - 1] += i;
+		else if (resTokens.size() > 0) {
+			if (isNum(i) && (resTokens[resTokens.size() - 1] == "-" || resTokens[resTokens.size() - 1] == "+")) {
+				resTokens[resTokens.size() - 1] += i;
 			}
 			else if (!isWS(i) && i != "") {
-				restokens.push_back(i);
+				resTokens.push_back(i);
 			}
 		}
 		else if (!isWS(i) && i != "") {
-			restokens.push_back(i);
+			resTokens.push_back(i);
 		}
 	}
-	return restokens;
+	return resTokens;
 }
 
 std::vector<Token> Tokenizer::StrToToken(std::vector<std::string> exp) {
