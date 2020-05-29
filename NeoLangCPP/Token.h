@@ -4,6 +4,7 @@
 class Token {
 public:
 	enum TokenType {
+		NONE,
 		INTL,
 		FLOATL,
 		STRINGL,
@@ -26,6 +27,6 @@ public:
 	TokenType _type;
 	std::string _value;
 
-	Token(TokenType type, std::string value);
+	Token(TokenType type = NONE, std::string value = "");
 };
 

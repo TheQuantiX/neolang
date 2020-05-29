@@ -7,7 +7,7 @@ bool Tokenizer::isInt(std::string exp) {
 }
 
 bool Tokenizer::isNum(std::string exp) {
-	return std::regex_match(exp, std::regex("^(-)?[0-9]+(\.[0-9]*)?$"));
+	return std::regex_match(exp, std::regex("^[-+]?([0-9]*[.])?[0-9]+([eE][-+]?\d+)?$"));
 }
 
 bool Tokenizer::isBool(std::string exp) {

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<string> vec{ "INTL", "FLOATL", "STRINGL", "BOOLL", "OP", "KEYWORD", "ID", "SEMICOLON", "COMMA", "DOT", "COLON", "LEFTCURLY", "RIGHTCURLY", "LEFTROUND", "RIGHTROUND", "LEFTSQUARE", "RIGHTSQUARE" };
+vector<string> vec{ "NONE", "INTL", "FLOATL", "STRINGL", "BOOLL", "OP", "KEYWORD", "ID", "SEMICOLON", "COMMA", "DOT", "COLON", "LEFTCURLY", "RIGHTCURLY", "LEFTROUND", "RIGHTROUND", "LEFTSQUARE", "RIGHTSQUARE" };
 
 void printVS(vector<Token> v) {
 	cout << "Tokens:\n";

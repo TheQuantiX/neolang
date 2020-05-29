@@ -12,19 +12,19 @@ std::vector<std::string> Tokenizer::StrToken(std::string exp) {
 	tokens.push_back("");
 	for (char i : exp) {
 		std::string str(1, i);
-		if (IC == CODE && tokens[tokens.size() - 1] == "/" && str == "/") {
+		if (IS == NONE && IC == CODE && tokens[tokens.size() - 1] == "/" && str == "/") {
 			IC = LINE;
 			tokens.pop_back();
 		}
-		if (str == "\n" && IC == LINE) {
+		if (IS == NONE && str == "\n" && IC == LINE) {
 			IC = CODE;
 			continue;
 		}
-		if (IC == CODE && tokens[tokens.size() - 1] == "/" && str == "*") {
+		if (IS == NONE && IC == CODE && tokens[tokens.size() - 1] == "/" && str == "*") {
 			IC = MLINE;
 			tokens.pop_back();
 		}
-		if (IC == MLINE && wasAsterisk && str == "/") {
+		if (IS == NONE && IC == MLINE && wasAsterisk && str == "/") {
 			IC = CODE;
 			continue;
 		}
@@ -240,7 +240,7 @@ std::vector<Token> Tokenizer::StrToToken(std::vector<std::string> exp) {
 std::vector<Token> Tokenizer::Tokenize(std::string exp) {
 	std::vector<std::string> StrTokenList;
 	std::vector<Token> TokenList;
-	StrTokenList = Tokenizer::StrToken(exp);
+	StrTokenList = Tokenizer::StrToken(exp + '\n');
 	TokenList = Tokenizer::StrToToken(StrTokenList);
 	return TokenList;
 }
