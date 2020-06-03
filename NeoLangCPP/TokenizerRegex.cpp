@@ -28,7 +28,7 @@ bool Tokenizer::isVar(std::string exp) {
 }
 
 bool Tokenizer::isKeyword(std::string exp) {
-	return std::regex_match(exp, std::regex("^for|while|if|else|switch|case|default|break|continue|return|int|string|float|bool|function|include$"));
+	return std::regex_match(exp, std::regex("^for|while|if|else|switch|case|default|break|continue|return|int|string|float|bool|func|include$"));
 }
 
 bool Tokenizer::isWS(std::string exp) {

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<string> vec{ "NONE", "INTL", "FLOATL", "STRINGL", "BOOLL", "OP", "KEYWORD", "ID", "SEMICOLON", "COMMA", "DOT", "COLON", "LEFTCURLY", "RIGHTCURLY", "LEFTROUND", "RIGHTROUND", "LEFTSQUARE", "RIGHTSQUARE" };
+vector<string> vec{ "NONE", "INTL", "FLOATL", "STRINGL", "BOOLL", "OP", "KEYWORD", "ID", "SEMICOLON", "COMMA", "DOT", "COLON", "LEFTCURLY", "RIGHTCURLY", "LEFTROUND", "RIGHTROUND", "LEFTSQUARE", "RIGHTSQUARE", "EOC" };
 
 void printVS(vector<Token> v) {
 	cout << "Tokens:\n";
@@ -15,6 +15,6 @@ void printVS(vector<Token> v) {
 }
 
 int main() {
-	vector<Token> v = Tokenizer().Tokenize("return /* Code */ nein or -2 > 5 // Good code has no need in comments\n");
+	vector<Token> v = Tokenizer().Tokenize("int a;");
 	printVS(v);
 }

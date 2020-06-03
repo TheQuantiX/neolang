@@ -12,19 +12,20 @@ std::string ParseError::toString() {
 	return ss.str();
 }
 
-ParseNode::ParseNode(Token con_token) {
-	nodeToken = Token(con_token._type, con_token._value);
+ParseNode::ParseNode(Parser::NodeType _type = Parser::NONE, std::string _value = "") {
+	type = _type;
+	value = _value;
 }
 
 Parser::Parser(std::vector<Token> con_vec) {
 	vec = con_vec;
 	pos = 0;
-	tree = parse(vec);
+	tree = parse_program(vec);
 }
 
-ParseNode Parser::parse(std::vector<Token> vec) {
+ParseNode Parser::parse_program(std::vector<Token> vec) {
 	/* COMING SOON */
-	ParseNode x;
+	ParseNode x(PROGRAM);
 	/* Some code here */
 	return x;
 }

@@ -2,13 +2,15 @@
 #include <vector>
 #include <sstream>
 #include <exception>
+#include <string>
 #include "Token.h"
 
 class ParseNode {
 public:
-	Token nodeToken;
+	Parser::NodeType type;
+	std::string value;
 	std::vector<ParseNode> children;
-	ParseNode(Token con_token = Token(Token::NONE, ""));
+	ParseNode(Parser::NodeType _type = Parser::NONE, std::string _value = "");
 };
 
 class ParseError: public std::exception {
@@ -21,11 +23,30 @@ public:
 
 class Parser {
 public:
+	enum NodeType { // 'cause tokens are incomplete
+		NONE,
+		INTL,
+		STRL,
+		FLOATL,
+		BOOLL,
+		OP,
+		ID,
+		FUNCTION,
+		BLOCK,
+		BLOCK_STATEMENTS,
+		PROGRAM,
+		STATEMENT,
+		EXPRESSION,
+		TERM,
+		FACTOR,
+		BASE,
+		ELEMENT
+	};
 	ParseNode tree;
 	std::vector<Token> vec;
 	int pos;
 	/* My a priori bad code goes here */
 	Parser(std::vector<Token> con_vec);
-	ParseNode parse(std::vector<Token> vec);
+	ParseNode parse_program(std::vector<Token> vec);
 };
 

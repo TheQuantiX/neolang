@@ -21,7 +21,8 @@ public:
 		LEFTROUND,
 		RIGHTROUND,
 		LEFTSQUARE,
-		RIGHTSQUARE
+		RIGHTSQUARE,
+		EOC //end-of-code
 	};
 
 	TokenType _type;

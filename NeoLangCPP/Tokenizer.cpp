@@ -242,5 +242,9 @@ std::vector<Token> Tokenizer::Tokenize(std::string exp) {
 	std::vector<Token> TokenList;
 	StrTokenList = Tokenizer::StrToken(exp + '\n');
 	TokenList = Tokenizer::StrToToken(StrTokenList);
+	Token tok;
+	tok._type = Token::TokenType::EOC;
+	tok._value = "End Of Code";
+	TokenList.push_back(tok);
 	return TokenList;
 }
